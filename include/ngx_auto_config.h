@@ -1,4 +1,4 @@
-#define NGX_CONFIGURE " --prefix=/nginx --with-http_sub_module --with-select_module"
+#define NGX_CONFIGURE " --prefix=/nginx --with-http_sub_module --with-select_module --without-http_gzip_module --without-pcre --without-http_rewrite_module --without-http_auth_basic_module --without-http-cache"
 
 #ifndef NGX_COMPILER
 #define NGX_COMPILER  "gcc 6.3.0 20170516 (Debian 6.3.0-18+deb9u1) "
@@ -26,7 +26,7 @@
 
 
 #ifndef NGX_HAVE_EPOLL
-#define NGX_HAVE_EPOLL  1
+#define NGX_HAVE_EPOLL  0
 #endif
 
 
@@ -36,17 +36,17 @@
 
 
 #ifndef NGX_HAVE_EPOLLRDHUP
-#define NGX_HAVE_EPOLLRDHUP  1
+#define NGX_HAVE_EPOLLRDHUP  0
 #endif
 
 
 #ifndef NGX_HAVE_EPOLLEXCLUSIVE
-#define NGX_HAVE_EPOLLEXCLUSIVE  1
+#define NGX_HAVE_EPOLLEXCLUSIVE  0
 #endif
 
 
 #ifndef NGX_HAVE_O_PATH
-#define NGX_HAVE_O_PATH  1
+#define NGX_HAVE_O_PATH  0
 #endif
 
 
@@ -71,7 +71,7 @@
 
 
 #ifndef NGX_HAVE_CAPABILITIES
-#define NGX_HAVE_CAPABILITIES  1
+#define NGX_HAVE_CAPABILITIES  0
 #endif
 
 
@@ -94,17 +94,17 @@
 
 
 #ifndef NGX_HAVE_POSIX_FADVISE
-#define NGX_HAVE_POSIX_FADVISE  1
+#define NGX_HAVE_POSIX_FADVISE  0
 #endif
 
 
 #ifndef NGX_HAVE_O_DIRECT
-#define NGX_HAVE_O_DIRECT  1
+#define NGX_HAVE_O_DIRECT  0
 #endif
 
 
 #ifndef NGX_HAVE_ALIGNED_DIRECTIO
-#define NGX_HAVE_ALIGNED_DIRECTIO  1
+#define NGX_HAVE_ALIGNED_DIRECTIO  0
 #endif
 
 
@@ -129,7 +129,7 @@
 
 
 #ifndef NGX_HAVE_SCHED_SETAFFINITY
-#define NGX_HAVE_SCHED_SETAFFINITY  1
+#define NGX_HAVE_SCHED_SETAFFINITY  0
 #endif
 
 
@@ -144,17 +144,17 @@
 
 
 #ifndef NGX_HAVE_IP_BIND_ADDRESS_NO_PORT
-#define NGX_HAVE_IP_BIND_ADDRESS_NO_PORT  1
+#define NGX_HAVE_IP_BIND_ADDRESS_NO_PORT  0
 #endif
 
 
 #ifndef NGX_HAVE_IP_PKTINFO
-#define NGX_HAVE_IP_PKTINFO  1
+#define NGX_HAVE_IP_PKTINFO  0
 #endif
 
 
 #ifndef NGX_HAVE_IPV6_RECVPKTINFO
-#define NGX_HAVE_IPV6_RECVPKTINFO  1
+#define NGX_HAVE_IPV6_RECVPKTINFO  0
 #endif
 
 
@@ -169,22 +169,22 @@
 
 
 #ifndef NGX_HAVE_TCP_FASTOPEN
-#define NGX_HAVE_TCP_FASTOPEN  1
+#define NGX_HAVE_TCP_FASTOPEN  0
 #endif
 
 
 #ifndef NGX_HAVE_TCP_INFO
-#define NGX_HAVE_TCP_INFO  1
+#define NGX_HAVE_TCP_INFO  0
 #endif
 
 
 #ifndef NGX_HAVE_ACCEPT4
-#define NGX_HAVE_ACCEPT4  1
+#define NGX_HAVE_ACCEPT4  0
 #endif
 
 
 #ifndef NGX_HAVE_EVENTFD
-#define NGX_HAVE_EVENTFD  1
+#define NGX_HAVE_EVENTFD  0
 #endif
 
 
@@ -194,7 +194,7 @@
 
 
 #ifndef NGX_HAVE_UNIX_DOMAIN
-#define NGX_HAVE_UNIX_DOMAIN  1
+#define NGX_HAVE_UNIX_DOMAIN  0
 #endif
 
 
@@ -249,7 +249,7 @@
 
 
 #ifndef NGX_HAVE_INET6
-#define NGX_HAVE_INET6  1
+#define NGX_HAVE_INET6  0
 #endif
 
 
@@ -269,7 +269,7 @@
 
 
 #ifndef NGX_SYS_NERR
-#define NGX_SYS_NERR  135
+#define NGX_SYS_NERR  12 /* was 135, Unikraft does not have all the error codes */
 #endif
 
 
@@ -279,7 +279,7 @@
 
 
 #ifndef NGX_HAVE_CLOCK_MONOTONIC
-#define NGX_HAVE_CLOCK_MONOTONIC  1
+#define NGX_HAVE_CLOCK_MONOTONIC  0
 #endif
 
 
@@ -319,7 +319,7 @@
 
 
 #ifndef NGX_HAVE_FIONBIO
-#define NGX_HAVE_FIONBIO  1
+#define NGX_HAVE_FIONBIO  1 /* ioctl(FIONBIO) */
 #endif
 
 
@@ -359,12 +359,12 @@
 
 
 #ifndef NGX_HTTP_CACHE
-#define NGX_HTTP_CACHE  1
+#define NGX_HTTP_CACHE  0 /* disabled module */
 #endif
 
 
 #ifndef NGX_HTTP_GZIP
-#define NGX_HTTP_GZIP  1
+#define NGX_HTTP_GZIP  0 /* disabled module */
 #endif
 
 
@@ -374,7 +374,7 @@
 
 
 #ifndef NGX_CRYPT
-#define NGX_CRYPT  1
+#define NGX_CRYPT  0 /* disabled module */
 #endif
 
 
@@ -394,17 +394,17 @@
 
 
 #ifndef NGX_PCRE
-#define NGX_PCRE  1
+#define NGX_PCRE  0 /* disabled module */
 #endif
 
 
 #ifndef NGX_HAVE_PCRE_JIT
-#define NGX_HAVE_PCRE_JIT  1
+#define NGX_HAVE_PCRE_JIT  0 /* disabled module */
 #endif
 
 
 #ifndef NGX_ZLIB
-#define NGX_ZLIB  1
+#define NGX_ZLIB  0 /* disabled module */
 #endif
 
 
@@ -479,16 +479,16 @@
 
 
 #ifndef NGX_SMP
-#define NGX_SMP  1
+#define NGX_SMP  0
 #endif
 
 
 #ifndef NGX_USER
-#define NGX_USER  "nobody"
+#define NGX_USER  "root"
 #endif
 
 
 #ifndef NGX_GROUP
-#define NGX_GROUP  "nogroup"
+#define NGX_GROUP  "root"
 #endif
 

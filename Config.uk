@@ -22,3 +22,9 @@ menuconfig LIBNGINX
 	select LWIP_DHCP
 	select LWIP_DNS
 	select LIBPTHREAD_EMBEDDED
+
+if LIBNGINX
+config LIBNGINX_MAIN_FUNCTION
+	bool "Provide main function"
+	default n
+endif

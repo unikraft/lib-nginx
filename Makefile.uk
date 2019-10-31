@@ -55,6 +55,11 @@ $(eval $(call patch,libnginx,$(LIBNGINX_PATCHDIR),nginx-$(LIBNGINX_VERSION)))
 LIBNGINX_SRC = $(LIBNGINX_ORIGIN)/$(LIBNGINX_BASENAME)/src
 
 ################################################################################
+# Sources
+################################################################################
+LIBNGINX_SRCS-$(CONFIG_LIBNGINX_MAIN_FUNCTION) += $(LIBNGINX_BASE)/main.c|unikraft
+
+################################################################################
 # Library includes
 ################################################################################
 CINCLUDES-$(CONFIG_LIBNGINX) += -I$(LIBNGINX_BASE)/include

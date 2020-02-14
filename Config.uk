@@ -6,7 +6,7 @@ menuconfig LIBNGINX
 	select LIBPOSIX_LIBDL
 	select LIBPOSIX_PROCESS
 	select LIBPOSIX_USER
-	select UKSYSINFO
+	select LIBPOSIX_SYSINFO
 	select LIBUKMMAP
 	select LIBUKTIME
 	select LIBNEWLIBC

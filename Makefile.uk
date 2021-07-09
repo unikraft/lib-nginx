@@ -44,7 +44,7 @@ $(eval $(call addlib_s,libnginx,$(CONFIG_LIBNGINX)))
 ################################################################################
 # Sources
 ################################################################################
-LIBNGINX_VERSION = 1.15.6
+LIBNGINX_VERSION = 1.21.1
 LIBNGINX_BASENAME = nginx-$(LIBNGINX_VERSION)
 LIBNGINX_URL = http://nginx.org/download/$(LIBNGINX_BASENAME).tar.gz
 LIBNGINX_PATCHDIR = $(LIBNGINX_BASE)/patches

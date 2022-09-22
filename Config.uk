@@ -6,6 +6,8 @@ menuconfig LIBNGINX
 	select LIBPOSIX_PROCESS
 	select LIBPOSIX_USER
 	select LIBPOSIX_SYSINFO
+	select LIBPOSIX_SOCKET
+	select LIBPOSIX_EVENT
 	select LIBUKMMAP
 	select LIBUKTIME
 	select LIBNEWLIBC

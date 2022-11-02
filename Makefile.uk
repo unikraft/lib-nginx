@@ -78,7 +78,7 @@ LIBNGINX_CINCLUDES-$(CONFIG_LIBNGINX_STREAM) += -I$(LIBNGINX_SRC)/stream
 ################################################################################
 # Flags
 ################################################################################
-LIBNGINX_FLAGS = -Wpointer-arith -Werror
+LIBNGINX_FLAGS = -Wpointer-arith
 
 # Suppress some warnings to make the build process look neater
 LIBNGINX_FLAGS_SUPPRESS = -Wno-unused-parameter -Wno-unused-variable	\

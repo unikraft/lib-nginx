@@ -1,3 +1,5 @@
+#include <uk/config.h>
+
 #define NGX_CONFIGURE "\
   --prefix=/nginx \
   --with-http_sub_module \

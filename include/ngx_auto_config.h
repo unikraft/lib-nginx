@@ -19,7 +19,7 @@
 #endif
 
 #ifndef NGX_COMPILER
-#define NGX_COMPILER  "gcc 6.3.0 20170516 (Debian 6.3.0-18+deb9u1) "
+#define NGX_COMPILER  "gcc 10.3.0 (Ubuntu 10.3.0-1ubuntu1~18.04~1) "
 #endif
 
 #ifndef NGX_HAVE_GCC_ATOMIC

@@ -11,7 +11,7 @@ menuconfig LIBNGINX
 	select LIBUKMMAP
 	select LIBUKTIME
 	select LIBUKSIGNAL
-	select LIBNEWLIBC
+	select LIBMUSL
 	select LIBLWIP
 	select LWIP_UKNETDEV
 	select LWIP_TCP

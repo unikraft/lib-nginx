@@ -8,6 +8,7 @@ menuconfig LIBNGINX
 	select LIBPOSIX_SYSINFO
 	select LIBUKMMAP
 	select LIBUKTIME
+	select LIBUKSIGNAL
 	select LIBNEWLIBC
 	select LIBLWIP
 	select LWIP_UKNETDEV

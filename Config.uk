@@ -8,7 +8,7 @@ menuconfig LIBNGINX
 	select LIBPOSIX_SYSINFO
 	select LIBPOSIX_SOCKET
 	select LIBPOSIX_EVENT
-	select LIBUKMMAP
+	imply LIBUKMMAP
 	select LIBUKTIME
 	select LIBUKSIGNAL
 	select LIBMUSL

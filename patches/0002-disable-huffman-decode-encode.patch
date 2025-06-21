@@ -1,0 +1,51 @@
+diff --git a/Config.uk b/Config.uk
+index 3b907e8..2719b5d 100644
+--- a/Config.uk
++++ b/Config.uk
+@@ -1,6 +1,6 @@
+ menuconfig LIBNGINX
+        bool "libnginx - a HTTP and reverse proxy, a mail proxy, and a generic TCP/UDP proxy server"
+-       default n
++       default y
+        select LIBUKSCHEDCOOP
+        select LIBPOSIX_LIBDL
+        select LIBPOSIX_PROCESS
+diff --git a/Library.uk b/Library.uk
+index fc1f309..c3a9d5d 100644
+--- a/Library.uk
++++ b/Library.uk
+@@ -1,5 +1,5 @@
+ name        := "nginx"
+ description := "A HTTP and reverse proxy, a mail proxy, and a generic TCP/UDP proxy server."
+ homepage    := "https://nginx.org/"
+-version     := 1.15.6 sha256:a3d8c67c2035808c7c0d475fffe263db8c353b11521aa7ade468b780ed826cc6 http://nginx.org/download/nginx-1.15.6.tar.gz
++version     := 1.28.0 c6b5c6b086c0df9d3ca3ff5e084c1d0ef909e6038279c71c1c3e985f576ff76a http://nginx.org/download/nginx-1.28.0.tar.gz
+ license     := "BSD-2-Clause"
+diff --git a/Makefile.uk b/Makefile.uk
+index 29db863..dfe367a 100644
+--- a/Makefile.uk
++++ b/Makefile.uk
+@@ -42,7 +42,7 @@ $(eval $(call addlib_s,libnginx,$(CONFIG_LIBNGINX)))
+ ################################################################################
+ # Sources
+ ################################################################################
+-LIBNGINX_VERSION = 1.15.6
++LIBNGINX_VERSION = 1.28.0
+ LIBNGINX_BASENAME = nginx-$(LIBNGINX_VERSION)
+ LIBNGINX_URL = http://nginx.org/download/$(LIBNGINX_BASENAME).tar.gz
+ LIBNGINX_PATCHDIR = $(LIBNGINX_BASE)/patches
+@@ -180,8 +180,10 @@ LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP) += $(LIBNGINX_SRC)/http/modules/ngx_http_l
+ LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP) += $(LIBNGINX_SRC)/http/ngx_http_header_filter_module.c
+ LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP) += $(LIBNGINX_SRC)/http/modules/ngx_http_chunked_filter_module.c
+ LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_V2) += $(LIBNGINX_SRC)/http/v2/ngx_http_v2_encode.c
+-# Huffman encode/decode not supported
+-LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_V2) += $(LIBNGINX_SRC)/http/v2/ngx_http_v2_huff_decode.c
+-LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_V2) += $(LIBNGINX_SRC)/http/v2/ngx_http_v2_huff_encode.c
++# LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_V2) += $(LIBNGINX_SRC)/http/v2/ngx_http_v2_huff_decode.c
++# LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_V2) += $(LIBNGINX_SRC)/http/v2/ngx_http_v2_huff_encode.c
+ LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_V2) += $(LIBNGINX_SRC)/http/v2/ngx_http_v2_table.c
+ LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_V2) += $(LIBNGINX_SRC)/http/v2/ngx_http_v2.c
+ LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_V2) += $(LIBNGINX_SRC)/http/v2/ngx_http_v2_filter_module.c
++
++# Stub replacements for huffman functions
++LIBNGINX_SRCS-y += $(LIBNGINX_BASE)/src/nginx_huff_stubs.cx

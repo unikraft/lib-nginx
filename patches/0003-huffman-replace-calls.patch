@@ -1,0 +1,38 @@
+--- a/src/http/v2/ngx_http_v2.c
++++ b/src/http/v2/ngx_http_v2.c
+@@ -19,6 +19,9 @@
+ #include <ngx_http_v2_module.h>
+ #include <ngx_http_request.h>
+
++// Forward declaration of stub
++extern ngx_int_t ngx_http_huff_decode_stub(u_char *, u_char *, size_t, u_char, ngx_uint_t, ngx_log_t *);
++
+ static ngx_http_v2_handler_pt ngx_http_v2_state[] = {
+     ngx_http_v2_state_head,
+     ngx_http_v2_state_head,
+@@ -1583,7 +1586,7 @@ ngx_http_v2_state_field_huff(ngx_http_v2_connection_t *h2c,
+     u_char  ch;
+     ngx_uint_t  state = 0;
+
+-    rc = ngx_http_huff_decode(&state, pos, len, ch, lower, h2c->connection->log);
++    rc = ngx_http_huff_decode_stub(&state, pos, len, ch, lower, h2c->connection->log);
+
+     if (rc != NGX_OK) {
+         return ngx_http_v2_connection_error(h2c, NGX_HTTP_V2_COMP_ERROR);
+--- a/src/http/modules/ngx_http_grpc_module.c
++++ b/src/http/modules/ngx_http_grpc_module.c
+@@ -10,6 +10,9 @@
+ #include <ngx_http.h>
+ #include <ngx_http_grpc_module.h>
+
++// Forward declaration of stub
++extern ngx_int_t ngx_http_huff_decode_stub(u_char *, u_char *, size_t, u_char, ngx_uint_t, ngx_log_t *);
++
+@@ -3201,7 +3204,7 @@ ngx_http_grpc_parse_fragment(ngx_http_request_t *r, ngx_http_grpc_ctx_t *ctx, ngx_buf_t *b)
+     // original call
+-    rc = ngx_http_huff_decode(&ctx->state, p, end - p, ch, 0, r->connection->log);
++    rc = ngx_http_huff_decode_stub(&ctx->state, p, end - p, ch, 0, r->connection->log);
+@@ -3310,7 +3313,7 @@ ngx_http_grpc_parse_fragment(ngx_http_request_t *r, ngx_http_grpc_ctx_t *ctx, ngx_buf_t *b)
+     // original call
+-    rc = ngx_http_huff_decode(&ctx->state, p, end - p, ch, 0, r->connection->log);
++    rc = ngx_http_huff_decode_stub(&ctx->state, p, end - p, ch, 0, r->connection->log);

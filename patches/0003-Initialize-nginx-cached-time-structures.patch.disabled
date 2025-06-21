@@ -1,0 +1,29 @@
+From 0c3c7ca3fec1f1e2b4d6c3b2739ece484ce4cb92 Mon Sep 17 00:00:00 2001
+From: Razvan Virtan <razvanvirtan@gmail.com>
+Date: Tue, 20 Jul 2021 19:52:48 +0300
+Subject: [PATCH] Initialize nginx cached time structures
+
+---
+ src/core/ngx_times.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/src/core/ngx_times.c b/src/core/ngx_times.c
+index 7964b00..ffb317f 100644
+--- a/src/core/ngx_times.c
++++ b/src/core/ngx_times.c
+@@ -73,6 +73,12 @@ ngx_time_init(void)
+ 
+     ngx_cached_time = &cached_time[0];
+ 
++    ngx_cached_http_time.data = &cached_http_time[0][0];
++    ngx_cached_err_log_time.data = &cached_err_log_time[0][0];
++    ngx_cached_http_log_time.data = &cached_http_log_time[0][0];
++    ngx_cached_http_log_iso8601.data = &cached_http_log_iso8601[0][0];
++    ngx_cached_syslog_time.data = &cached_syslog_time[0][0];
++
+     ngx_time_update();
+ }
+ 
+-- 
+2.17.1
+

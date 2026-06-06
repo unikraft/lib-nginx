@@ -42,7 +42,7 @@ $(eval $(call addlib_s,libnginx,$(CONFIG_LIBNGINX)))
 ################################################################################
 # Sources
 ################################################################################
-LIBNGINX_VERSION = 1.15.6
+LIBNGINX_VERSION = 1.28.3
 LIBNGINX_BASENAME = nginx-$(LIBNGINX_VERSION)
 LIBNGINX_URL = http://nginx.org/download/$(LIBNGINX_BASENAME).tar.gz
 LIBNGINX_PATCHDIR = $(LIBNGINX_BASE)/patches
@@ -140,6 +140,7 @@ LIBNGINX_SRCS-y += $(LIBNGINX_SRC)/event/ngx_event_posted.c
 LIBNGINX_SRCS-y += $(LIBNGINX_SRC)/event/ngx_event_timer.c
 LIBNGINX_SRCS-y += $(LIBNGINX_SRC)/event/ngx_event_udp.c
 LIBNGINX_SRCS-$(CONFIG_LIBSSL) += $(LIBNGINX_SRC)/event/ngx_event_openssl.c
+LIBNGINX_SRCS-$(CONFIG_LIBSSL) += $(LIBNGINX_SRC)/event/ngx_event_openssl_cache.c
 LIBNGINX_SRCS-$(CONFIG_LIBSSL) += $(LIBNGINX_SRC)/event/ngx_event_openssl_stapling.c
 LIBNGINX_SRCS-y += $(LIBNGINX_SRC)/os/unix/ngx_alloc.c
 LIBNGINX_SRCS-y += $(LIBNGINX_SRC)/os/unix/ngx_channel.c
@@ -180,8 +181,8 @@ LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP) += $(LIBNGINX_SRC)/http/modules/ngx_http_l
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP) += $(LIBNGINX_SRC)/http/ngx_http_header_filter_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP) += $(LIBNGINX_SRC)/http/modules/ngx_http_chunked_filter_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_V2) += $(LIBNGINX_SRC)/http/v2/ngx_http_v2_encode.c
-LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_V2) += $(LIBNGINX_SRC)/http/v2/ngx_http_v2_huff_decode.c
-LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_V2) += $(LIBNGINX_SRC)/http/v2/ngx_http_v2_huff_encode.c
+LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_V2) += $(LIBNGINX_SRC)/http/ngx_http_huff_decode.c
+LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_V2) += $(LIBNGINX_SRC)/http/ngx_http_huff_encode.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_V2) += $(LIBNGINX_SRC)/http/v2/ngx_http_v2_table.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_V2) += $(LIBNGINX_SRC)/http/v2/ngx_http_v2.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_V2) += $(LIBNGINX_SRC)/http/v2/ngx_http_v2_filter_module.c
@@ -214,12 +215,12 @@ LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_AUTH_BASIC) += $(LIBNGINX_SRC)/http/modules
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_ACCESS) += $(LIBNGINX_SRC)/http/modules/ngx_http_access_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_LIMIT_CONN) += $(LIBNGINX_SRC)/http/modules/ngx_http_limit_conn_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_LIMIT_REQ) += $(LIBNGINX_SRC)/http/modules/ngx_http_limit_req_module.c
-LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_REALIP) += $(LIBNGINX_SRC)/http/modules/ngx_http_limit_req_module.c
-LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_STATUS) += $(LIBNGINX_SRC)/http/modules/ngx_http_status_module.c
+LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_REALIP) += $(LIBNGINX_SRC)/http/modules/ngx_http_realip_module.c
+LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_STUB_STATUS) += $(LIBNGINX_SRC)/http/modules/ngx_http_stub_status_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_GEO) += $(LIBNGINX_SRC)/http/modules/ngx_http_geo_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_GEOIP) += $(LIBNGINX_SRC)/http/modules/ngx_http_geoip_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_MAP) += $(LIBNGINX_SRC)/http/modules/ngx_http_map_module.c
-LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_SPLIT_CLENTS) += $(LIBNGINX_SRC)/http/modules/ngx_http_split_clients_module.c
+LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_SPLIT_CLIENTS) += $(LIBNGINX_SRC)/http/modules/ngx_http_split_clients_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_REFERER) += $(LIBNGINX_SRC)/http/modules/ngx_http_referer_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_REWRITE) += $(LIBNGINX_SRC)/http/modules/ngx_http_rewrite_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_SSL) += $(LIBNGINX_SRC)/http/modules/ngx_http_ssl_module.c
@@ -230,7 +231,7 @@ LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_SCGI) += $(LIBNGINX_SRC)/http/modules/ngx_h
 ifeq ($(CONFIG_LIBNGINX_HTTP_GRPC)$(CONFIG_LIBNGINX_HTTP_V2),yy)
 LIBNGINX_SRCS-y += $(LIBNGINX_SRC)/http/modules/ngx_http_grpc_module.c
 endif
-LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_PERL) += $(LIBNGINX_SRC)/http/modules/ngx_http_perl_module.c
+LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_PERL) += $(LIBNGINX_SRC)/http/modules/perl/ngx_http_perl_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_MEMCACHED) += $(LIBNGINX_SRC)/http/modules/ngx_http_memcached_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_EMPTY_GIF) += $(LIBNGINX_SRC)/http/modules/ngx_http_empty_gif_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_BROWSER) += $(LIBNGINX_SRC)/http/modules/ngx_http_browser_module.c
@@ -244,7 +245,6 @@ LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_UPSTREAM_LEAST_CONN) += $(LIBNGINX_SRC)/htt
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_UPSTREAM_RANDOM) += $(LIBNGINX_SRC)/http/modules/ngx_http_upstream_random_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_UPSTREAM_KEEPALIVE) += $(LIBNGINX_SRC)/http/modules/ngx_http_upstream_keepalive_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_UPSTREAM_ZONE) += $(LIBNGINX_SRC)/http/modules/ngx_http_upstream_zone_module.c
-LIBNGINX_SRCS-$(CONFIG_LIBNGINX_HTTP_STUB_STATUS) += $(LIBNGINX_SRC)/http/modules/ngx_http_stub_status_module.c
 
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_MAIL) += $(LIBNGINX_SRC)/mail/ngx_mail.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_MAIL) += $(LIBNGINX_SRC)/mail/ngx_mail_core_module.c
@@ -256,10 +256,14 @@ LIBNGINX_SRCS-$(CONFIG_LIBNGINX_MAIL) += $(LIBNGINX_SRC)/mail/ngx_mail_auth_http
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_MAIL) += $(LIBNGINX_SRC)/mail/ngx_mail_proxy_module.c
 
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_STREAM) += $(LIBNGINX_SRC)/stream/ngx_stream.c
+LIBNGINX_SRCS-$(CONFIG_LIBNGINX_STREAM) += $(LIBNGINX_SRC)/stream/ngx_stream_variables.c
+LIBNGINX_SRCS-$(CONFIG_LIBNGINX_STREAM) += $(LIBNGINX_SRC)/stream/ngx_stream_script.c
+LIBNGINX_SRCS-$(CONFIG_LIBNGINX_STREAM) += $(LIBNGINX_SRC)/stream/ngx_stream_handler.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_STREAM) += $(LIBNGINX_SRC)/stream/ngx_stream_core_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_STREAM) += $(LIBNGINX_SRC)/stream/ngx_stream_log_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_STREAM) += $(LIBNGINX_SRC)/stream/ngx_stream_proxy_module.c
-LIBNGINX_SRCS-$(CONFIG_LIBNGINX_STREAM) += $(LIBNGINX_SRC)/stream/ngx_stream_upstream_module.c
+LIBNGINX_SRCS-$(CONFIG_LIBNGINX_STREAM) += $(LIBNGINX_SRC)/stream/ngx_stream_upstream.c
+LIBNGINX_SRCS-$(CONFIG_LIBNGINX_STREAM) += $(LIBNGINX_SRC)/stream/ngx_stream_upstream_round_robin.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_STREAM) += $(LIBNGINX_SRC)/stream/ngx_stream_write_filter_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_STREAM_SSL) += $(LIBNGINX_SRC)/stream/ngx_stream_ssl_module.c
 LIBNGINX_SRCS-$(CONFIG_LIBNGINX_STREAM_REALIP) += $(LIBNGINX_SRC)/stream/ngx_stream_realip_module.c

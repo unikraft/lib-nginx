@@ -46,3 +46,7 @@ menu options, all under `Library Configuration`:
 ## Further information
 Please refer to the `README.md` as well as the documentation in the `doc/`
 subdirectory of the main unikraft repository.
+
+## Upgrade notes
+The nginx `1.28.3` port-update analysis and change log are documented in
+`UPDATING-TO-NGINX-1.28.3.md`.

@@ -16,7 +16,7 @@ extern ngx_module_t  ngx_http_module;
 extern ngx_module_t  ngx_http_core_module;
 extern ngx_module_t  ngx_http_log_module;
 
-#ifdef CONFIG_LIBNGINX_UPSTREAM
+#ifdef CONFIG_LIBNGINX_HTTP_UPSTREAM
 extern ngx_module_t  ngx_http_upstream_module;
 #endif
 
@@ -133,8 +133,8 @@ extern ngx_module_t  ngx_http_limit_req_module;
 extern ngx_module_t  ngx_http_realip_module;
 #endif
 
-#ifdef CONFIG_LIBNGINX_HTTP_STATUS
-extern ngx_module_t  ngx_http_status_module;
+#ifdef CONFIG_LIBNGINX_HTTP_STUB_STATUS
+extern ngx_module_t  ngx_http_stub_status_module;
 #endif
 
 #ifdef CONFIG_LIBNGINX_HTTP_GEO
@@ -149,7 +149,7 @@ extern ngx_module_t  ngx_http_geoip_module;
 extern ngx_module_t  ngx_http_map_module;
 #endif
 
-#ifdef CONFIG_LIBNGINX_HTTP_SPLIT_CLENTS
+#ifdef CONFIG_LIBNGINX_HTTP_SPLIT_CLIENTS
 extern ngx_module_t  ngx_http_split_clients_module;
 #endif
 
@@ -241,9 +241,6 @@ extern ngx_module_t  ngx_http_upstream_keepalive_module;
 extern ngx_module_t  ngx_http_upstream_zone_module;
 #endif
 
-#ifdef CONFIG_LIBNGINX_HTTP_STUB_STATUS
-extern ngx_module_t  ngx_http_stub_status_module;
-#endif
 #endif
 
 #ifdef CONFIG_LIBNGINX_MAIL
@@ -327,8 +324,9 @@ extern ngx_module_t  ngx_stream_ssl_preread_module;
 #endif
 #endif
 
-#ifdef CONFIG_LIBNSSL
+#ifdef CONFIG_LIBSSL
 extern ngx_module_t  ngx_openssl_module;
+extern ngx_module_t  ngx_openssl_cache_module;
 #endif
 
 #ifdef CONFIG_LIBPCRE
@@ -348,7 +346,7 @@ ngx_module_t *ngx_modules[] = {
     &ngx_http_core_module,
     &ngx_http_log_module,
 
-#ifdef CONFIG_LIBNGINX_UPSTREAM
+#ifdef CONFIG_LIBNGINX_HTTP_UPSTREAM
     &ngx_http_upstream_module,
 #endif
 
@@ -465,8 +463,8 @@ ngx_module_t *ngx_modules[] = {
     &ngx_http_realip_module,
 #endif
 
-#ifdef CONFIG_LIBNGINX_HTTP_STATUS
-    &ngx_http_status_module,
+#ifdef CONFIG_LIBNGINX_HTTP_STUB_STATUS
+    &ngx_http_stub_status_module,
 #endif
 
 #ifdef CONFIG_LIBNGINX_HTTP_GEO
@@ -481,7 +479,7 @@ ngx_module_t *ngx_modules[] = {
     &ngx_http_map_module,
 #endif
 
-#ifdef CONFIG_LIBNGINX_HTTP_SPLIT_CLENTS
+#ifdef CONFIG_LIBNGINX_HTTP_SPLIT_CLIENTS
     &ngx_http_split_clients_module,
 #endif
 
@@ -573,9 +571,6 @@ ngx_module_t *ngx_modules[] = {
     &ngx_http_upstream_zone_module,
 #endif
 
-#ifdef CONFIG_LIBNGINX_HTTP_STUB_STATUS
-    &ngx_http_stub_status_module,
-#endif
 #endif
 
 #ifdef CONFIG_LIBNGINX_MAIL
@@ -659,8 +654,9 @@ ngx_module_t *ngx_modules[] = {
 #endif
 #endif
 
-#ifdef CONFIG_LIBNSSL
+#ifdef CONFIG_LIBSSL
     &ngx_openssl_module,
+    &ngx_openssl_cache_module,
 #endif
 
 #ifdef CONFIG_LIBPCRE
@@ -686,7 +682,7 @@ char *ngx_module_names[] = {
     "ngx_http_header_filter_module",
     "ngx_http_chunked_filter_module",
 
-#ifdef CONFIG_LIBNGINX_UPSTREAM
+#ifdef CONFIG_LIBNGINX_HTTP_UPSTREAM
     "ngx_http_upstream_module",
 #endif
 
@@ -799,8 +795,8 @@ char *ngx_module_names[] = {
     "ngx_http_realip_module",
 #endif
 
-#ifdef CONFIG_LIBNGINX_HTTP_STATUS
-    "ngx_http_status_module",
+#ifdef CONFIG_LIBNGINX_HTTP_STUB_STATUS
+    "ngx_http_stub_status_module",
 #endif
 
 #ifdef CONFIG_LIBNGINX_HTTP_GEO
@@ -815,7 +811,7 @@ char *ngx_module_names[] = {
     "ngx_http_map_module",
 #endif
 
-#ifdef CONFIG_LIBNGINX_HTTP_SPLIT_CLENTS
+#ifdef CONFIG_LIBNGINX_HTTP_SPLIT_CLIENTS
     "ngx_http_split_clients_module",
 #endif
 
@@ -907,9 +903,6 @@ char *ngx_module_names[] = {
     "ngx_http_upstream_zone_module",
 #endif
 
-#ifdef CONFIG_LIBNGINX_HTTP_STUB_STATUS
-    "ngx_http_stub_status_module",
-#endif
 #endif
 
 #ifdef CONFIG_LIBNGINX_MAIL
@@ -993,8 +986,9 @@ char *ngx_module_names[] = {
 #endif
 #endif
 
-#ifdef CONFIG_LIBNSSL
+#ifdef CONFIG_LIBSSL
     "ngx_openssl_module",
+    "ngx_openssl_cache_module",
 #endif
 
 #ifdef CONFIG_LIBPCRE

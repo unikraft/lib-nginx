@@ -1,5 +1,5 @@
 name        := "nginx"
 description := "A HTTP and reverse proxy, a mail proxy, and a generic TCP/UDP proxy server."
 homepage    := "https://nginx.org/"
-version     := 1.15.6 sha256:a3d8c67c2035808c7c0d475fffe263db8c353b11521aa7ade468b780ed826cc6 http://nginx.org/download/nginx-1.15.6.tar.gz
+version     := 1.30.0 sha256:058188c64bf22baecaa72b809a6318a4f9ba623889c554feab03f7cb853ab31b http://nginx.org/download/nginx-1.30.0.tar.gz
 license     := "BSD-2-Clause"

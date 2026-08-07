@@ -44,7 +44,7 @@ $(eval $(call addlib_s,libnginx,$(CONFIG_LIBNGINX)))
 ################################################################################
 LIBNGINX_VERSION = 1.30.0
 LIBNGINX_BASENAME = nginx-$(LIBNGINX_VERSION)
-LIBNGINX_URL = http://nginx.org/download/$(LIBNGINX_BASENAME).tar.gz
+LIBNGINX_URL = https://nginx.org/download/$(LIBNGINX_BASENAME).tar.gz
 LIBNGINX_PATCHDIR = $(LIBNGINX_BASE)/patches
 $(eval $(call fetch,libnginx,$(LIBNGINX_URL)))
 $(eval $(call patch,libnginx,$(LIBNGINX_PATCHDIR),nginx-$(LIBNGINX_VERSION)))
